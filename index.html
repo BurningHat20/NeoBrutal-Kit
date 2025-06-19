@@ -1,0 +1,3220 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NeoBrutal Kit - Professional Neubrutalism Component Library</title>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.0.0/fonts/remixicon.css" rel="stylesheet">
+    <style>
+        :root {
+            /* Classic Theme (Default) */
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8f9fa;
+            --bg-gradient: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            --text-primary: #000000;
+            --text-secondary: #6c757d;
+            --text-accent: #ffffff;
+            --border-color: #000000;
+            --shadow-primary: #ff6b35;
+            --shadow-secondary: #000000;
+            --accent-primary: #ff6b35;
+            --accent-secondary: #000000;
+            --texture-pattern: none;
+            --border-style: solid;
+            --border-width: 3px;
+            --corner-radius: 16px;
+            --success-color: #22c55e;
+            --warning-color: #f59e0b;
+            --error-color: #ef4444;
+            --info-color: #3b82f6;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji', sans-serif;
+            background: var(--bg-gradient);
+            background-attachment: fixed;
+            padding: 24px;
+            line-height: 1.6;
+            transition: all 0.5s ease;
+            position: relative;
+            font-feature-settings: 'liga' 1, 'kern' 1;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--texture-pattern);
+            opacity: 0.1;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .container {
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Header Styles */
+        .header {
+            text-align: center;
+            margin-bottom: 64px;
+            padding: 32px 0;
+        }
+
+        .header h1 {
+            font-size: clamp(3rem, 8vw, 5rem);
+            font-weight: 900;
+            color: var(--text-primary);
+            margin-bottom: 16px;
+            letter-spacing: -0.04em;
+            text-shadow: 4px 4px 0px var(--shadow-primary);
+            line-height: 0.9;
+        }
+
+        .header .subtitle {
+            font-size: clamp(1.125rem, 3vw, 1.5rem);
+            color: var(--text-secondary);
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .header .description {
+            font-size: clamp(1rem, 2.5vw, 1.25rem);
+            color: var(--text-secondary);
+            font-weight: 500;
+            max-width: 600px;
+            margin: 0 auto 32px;
+        }
+
+        .creator-info {
+            display: inline-flex;
+            align-items: center;
+            background: var(--bg-primary);
+            border: var(--border-width) var(--border-style) var(--border-color);
+            border-radius: 12px;
+            padding: 12px 20px;
+            box-shadow: 4px 4px 0px var(--shadow-secondary);
+            transition: all 0.2s ease;
+            text-decoration: none;
+            color: var(--text-primary);
+            font-weight: 600;
+            margin-top: 16px;
+        }
+
+        .creator-info:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: 6px 6px 0px var(--shadow-secondary);
+            text-decoration: none;
+            color: var(--text-primary);
+        }
+
+        .creator-logo {
+            width: 32px;
+            height: 32px;
+            background: var(--accent-primary);
+            border-radius: 8px;
+            margin-right: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            border: 2px solid var(--border-color);
+        }
+
+        .creator-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Theme Switcher */
+        .theme-switcher {
+            background: var(--bg-primary);
+            border: var(--border-width) var(--border-style) var(--border-color);
+            border-radius: var(--corner-radius);
+            padding: 32px;
+            margin-bottom: 48px;
+            box-shadow: 8px 8px 0px var(--shadow-primary);
+            transition: all 0.3s ease;
+        }
+
+        .theme-switcher h3 {
+            font-size: 1.75rem;
+            font-weight: 800;
+            color: var(--text-primary);
+            margin-bottom: 24px;
+            text-align: center;
+            letter-spacing: -0.02em;
+        }
+
+        .theme-categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            margin-bottom: 24px;
+        }
+
+        .theme-category {
+            background: var(--bg-secondary);
+            border: 2px solid var(--border-color);
+            border-radius: 16px;
+            padding: 20px;
+        }
+
+        .category-title {
+            font-size: 1.125rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 16px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .theme-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .theme-btn {
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            border: 2px solid var(--border-color);
+            border-radius: 10px;
+            padding: 10px 16px;
+            font-family: inherit;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 3px 3px 0px var(--shadow-secondary);
+            text-transform: none;
+            letter-spacing: 0.01em;
+        }
+
+        .theme-btn:hover {
+            transform: translate(-1px, -1px);
+            box-shadow: 4px 4px 0px var(--shadow-secondary);
+        }
+
+        .theme-btn.active {
+            background: var(--accent-primary);
+            color: var(--text-accent);
+            box-shadow: 3px 3px 0px var(--border-color);
+        }
+
+        /* Component Section Styles */
+        .component-section {
+            background: var(--bg-primary);
+            border: var(--border-width) var(--border-style) var(--border-color);
+            border-radius: var(--corner-radius);
+            padding: 48px;
+            margin-bottom: 48px;
+            box-shadow: 12px 12px 0px var(--shadow-primary);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .component-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--texture-pattern);
+            opacity: 0.03;
+            z-index: 0;
+        }
+
+        .component-section>* {
+            position: relative;
+            z-index: 1;
+        }
+
+        .section-title {
+            font-size: 2.75rem;
+            font-weight: 900;
+            color: var(--text-primary);
+            margin-bottom: 16px;
+            text-shadow: 3px 3px 0px var(--shadow-primary);
+            letter-spacing: -0.03em;
+            line-height: 1.1;
+        }
+
+        .section-description {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            margin-bottom: 40px;
+            font-weight: 500;
+            line-height: 1.5;
+        }
+
+        .component-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 32px;
+            margin-bottom: 32px;
+        }
+
+        .component-showcase {
+            background: var(--bg-secondary);
+            border: 2px solid var(--border-color);
+            border-radius: 16px;
+            padding: 28px;
+            position: relative;
+        }
+
+        .component-title {
+            font-size: 1.375rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 20px;
+            letter-spacing: -0.01em;
+        }
+
+        .component-examples {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        /* Button Components */
+        .btn {
+            background: var(--accent-primary);
+            color: var(--text-accent);
+            border: var(--border-width) var(--border-style) var(--border-color);
+            border-radius: 12px;
+            padding: 14px 28px;
+            font-family: inherit;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 4px 4px 0px var(--border-color);
+            text-transform: none;
+            position: relative;
+            overflow: hidden;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            text-decoration: none;
+            text-align: center;
+            letter-spacing: 0.01em;
+            line-height: 1.2;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--texture-pattern);
+            opacity: 0.1;
+            z-index: 0;
+        }
+
+        .btn>* {
+            position: relative;
+            z-index: 1;
+        }
+
+        .btn:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: 6px 6px 0px var(--border-color);
+        }
+
+        .btn:active {
+            transform: translate(1px, 1px);
+            box-shadow: 2px 2px 0px var(--border-color);
+        }
+
+        .btn-secondary {
+            background: var(--bg-primary);
+            color: var(--accent-primary);
+            border-color: var(--accent-primary);
+            box-shadow: 4px 4px 0px var(--accent-primary);
+        }
+
+        .btn-secondary:hover {
+            background: var(--accent-primary);
+            color: var(--text-accent);
+            box-shadow: 6px 6px 0px var(--accent-primary);
+        }
+
+        .btn-success {
+            background: var(--success-color);
+            color: white;
+            border-color: var(--border-color);
+            box-shadow: 4px 4px 0px var(--border-color);
+        }
+
+        .btn-warning {
+            background: var(--warning-color);
+            color: white;
+            border-color: var(--border-color);
+            box-shadow: 4px 4px 0px var(--border-color);
+        }
+
+        .btn-error {
+            background: var(--error-color);
+            color: white;
+            border-color: var(--border-color);
+            box-shadow: 4px 4px 0px var(--border-color);
+        }
+
+        .btn-large {
+            padding: 18px 36px;
+            font-size: 16px;
+        }
+
+        .btn-small {
+            padding: 10px 20px;
+            font-size: 13px;
+        }
+
+        .btn-icon-only {
+            padding: 14px;
+            min-width: 50px;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        /* Input Components */
+        .input {
+            width: 100%;
+            padding: 16px 20px;
+            border: var(--border-width) var(--border-style) var(--border-color);
+            border-radius: 12px;
+            font-family: inherit;
+            font-size: 16px;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            margin-bottom: 4px;
+            line-height: 1.4;
+        }
+
+        .input:focus {
+            outline: none;
+            border-color: var(--accent-primary);
+            box-shadow: 4px 4px 0px var(--accent-primary);
+            transform: translate(-1px, -1px);
+        }
+
+        .input::placeholder {
+            color: var(--text-secondary);
+            opacity: 0.7;
+        }
+
+        .input-group {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .input-group .input {
+            padding-left: 48px;
+            margin-bottom: 0;
+        }
+
+        .input-group i {
+            position: absolute;
+            left: 16px;
+            color: var(--text-secondary);
+            font-size: 20px;
+            z-index: 2;
+        }
+
+        .label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--text-primary);
+            font-size: 15px;
+            letter-spacing: 0.01em;
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .select {
+            width: 100%;
+            padding: 16px 20px;
+            border: var(--border-width) var(--border-style) var(--border-color);
+            border-radius: 12px;
+            font-family: inherit;
+            font-size: 16px;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+            background-position: right 12px center;
+            background-repeat: no-repeat;
+            background-size: 16px;
+        }
+
+        .checkbox-wrapper {
+            display: flex;
+            align-items: center;
+            margin: 12px 0;
+            cursor: pointer;
+        }
+
+        .checkbox {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--border-color);
+            border-radius: 4px;
+            margin-right: 12px;
+            cursor: pointer;
+            position: relative;
+            appearance: none;
+            background: var(--bg-primary);
+            transition: all 0.2s ease;
+        }
+
+        .checkbox:checked {
+            background: var(--accent-primary);
+            border-color: var(--accent-primary);
+        }
+
+        .checkbox:checked::after {
+            content: '✓';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: var(--text-accent);
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .radio-wrapper {
+            display: flex;
+            align-items: center;
+            margin: 12px 0;
+            cursor: pointer;
+        }
+
+        .radio {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--border-color);
+            border-radius: 50%;
+            margin-right: 12px;
+            cursor: pointer;
+            position: relative;
+            appearance: none;
+            background: var(--bg-primary);
+            transition: all 0.2s ease;
+        }
+
+        .radio:checked {
+            border-color: var(--accent-primary);
+        }
+
+        .radio:checked::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 8px;
+            height: 8px;
+            background: var(--accent-primary);
+            border-radius: 50%;
+        }
+
+        /* Toggle Switch */
+        .toggle-wrapper {
+            display: flex;
+            align-items: center;
+            margin: 12px 0;
+            cursor: pointer;
+        }
+
+        .toggle {
+            width: 50px;
+            height: 26px;
+            background: var(--bg-secondary);
+            border: 2px solid var(--border-color);
+            border-radius: 13px;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-right: 12px;
+            appearance: none;
+        }
+
+        .toggle::after {
+            content: '';
+            position: absolute;
+            top: 1px;
+            left: 1px;
+            width: 20px;
+            height: 20px;
+            background: var(--border-color);
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .toggle:checked {
+            background: var(--accent-primary);
+        }
+
+        .toggle:checked::after {
+            transform: translateX(24px);
+            background: var(--text-accent);
+        }
+
+        /* Range Slider */
+        .range-wrapper {
+            margin: 20px 0;
+        }
+
+        .range {
+            width: 100%;
+            height: 8px;
+            background: var(--bg-secondary);
+            border: 2px solid var(--border-color);
+            border-radius: 4px;
+            outline: none;
+            appearance: none;
+            cursor: pointer;
+        }
+
+        .range::-webkit-slider-thumb {
+            appearance: none;
+            width: 24px;
+            height: 24px;
+            background: var(--accent-primary);
+            border: 2px solid var(--border-color);
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 2px 2px 0px var(--border-color);
+        }
+
+        .range::-moz-range-thumb {
+            width: 24px;
+            height: 24px;
+            background: var(--accent-primary);
+            border: 2px solid var(--border-color);
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 2px 2px 0px var(--border-color);
+        }
+
+        /* Card Components */
+        .card {
+            background: var(--bg-primary);
+            border: var(--border-width) var(--border-style) var(--border-color);
+            border-radius: var(--corner-radius);
+            padding: 28px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--accent-primary);
+        }
+
+        .card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--texture-pattern);
+            opacity: 0.05;
+            z-index: 0;
+        }
+
+        .card>* {
+            position: relative;
+            z-index: 1;
+        }
+
+        .card:hover {
+            transform: translate(-4px, -4px);
+            box-shadow: 8px 8px 0px var(--shadow-primary);
+        }
+
+        .card h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 12px;
+            letter-spacing: -0.01em;
+        }
+
+        .card p {
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        /* Badge Components */
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 0.01em;
+            box-shadow: 2px 2px 0px var(--border-color);
+        }
+
+        .badge-primary {
+            background: var(--accent-primary);
+            color: var(--text-accent);
+        }
+
+        .badge-secondary {
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+        }
+
+        .badge-success {
+            background: var(--success-color);
+            color: white;
+        }
+
+        .badge-warning {
+            background: var(--warning-color);
+            color: white;
+        }
+
+        .badge-error {
+            background: var(--error-color);
+            color: white;
+        }
+
+        .badge-info {
+            background: var(--info-color);
+            color: white;
+        }
+
+        /* Progress Bar */
+        .progress-wrapper {
+            margin: 20px 0;
+        }
+
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .progress {
+            width: 100%;
+            height: 12px;
+            background: var(--bg-secondary);
+            border: 2px solid var(--border-color);
+            border-radius: 6px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: var(--accent-primary);
+            transition: width 0.5s ease;
+            position: relative;
+        }
+
+        .progress-bar::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: repeating-linear-gradient(45deg,
+                    transparent,
+                    transparent 4px,
+                    rgba(255, 255, 255, 0.2) 4px,
+                    rgba(255, 255, 255, 0.2) 8px);
+            animation: progress-stripes 1s linear infinite;
+        }
+
+        @keyframes progress-stripes {
+            0% {
+                background-position: 0 0;
+            }
+
+            100% {
+                background-position: 20px 0;
+            }
+        }
+
+        /* Tab Components */
+        .tabs {
+            margin: 24px 0;
+        }
+
+        .tab-buttons {
+            display: flex;
+            gap: 4px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 0;
+        }
+
+        .tab-button {
+            background: var(--bg-secondary);
+            color: var(--text-secondary);
+            border: 2px solid var(--border-color);
+            border-bottom: none;
+            border-radius: 8px 8px 0 0;
+            padding: 12px 20px;
+            font-family: inherit;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            position: relative;
+            top: 2px;
+        }
+
+        .tab-button.active {
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            box-shadow: 2px -2px 0px var(--accent-primary);
+        }
+
+        .tab-content {
+            display: none;
+            padding: 20px;
+            background: var(--bg-primary);
+            border: 2px solid var(--border-color);
+            border-radius: 0 12px 12px 12px;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal {
+            background: var(--bg-primary);
+            border: var(--border-width) var(--border-style) var(--border-color);
+            border-radius: var(--corner-radius);
+            padding: 32px;
+            max-width: 500px;
+            width: 100%;
+            box-shadow: 12px 12px 0px var(--shadow-primary);
+            position: relative;
+            animation: modalSlideIn 0.3s ease;
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9) translate(-10px, -10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1) translate(0, 0);
+            }
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--text-secondary);
+            padding: 4px;
+        }
+
+        .modal-close:hover {
+            color: var(--text-primary);
+        }
+
+        /* Navigation */
+        .nav {
+            background: var(--bg-primary);
+            border: var(--border-width) var(--border-style) var(--border-color);
+            border-radius: var(--corner-radius);
+            padding: 16px 24px;
+            margin-bottom: 32px;
+            box-shadow: 4px 4px 0px var(--shadow-primary);
+            display: flex;
+            align-items: center;
+            justify-content: between;
+            gap: 24px;
+            flex-wrap: wrap;
+        }
+
+        .nav-brand {
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: var(--text-primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .nav-brand:hover {
+            color: var(--accent-primary);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            flex: 1;
+            justify-content: center;
+        }
+
+        .nav-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 8px 16px;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--accent-primary);
+            background: var(--bg-secondary);
+        }
+
+        .nav-link.active {
+            color: var(--accent-primary);
+            background: var(--bg-secondary);
+            border: 2px solid var(--accent-primary);
+        }
+
+        .nav-actions {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        /* Dropdown */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-toggle {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: var(--bg-primary);
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
+            box-shadow: 4px 4px 0px var(--shadow-secondary);
+            margin-top: 8px;
+            min-width: 200px;
+            z-index: 100;
+            display: none;
+        }
+
+        .dropdown.active .dropdown-menu {
+            display: block;
+        }
+
+        .dropdown-item {
+            display: block;
+            padding: 12px 16px;
+            color: var(--text-primary);
+            text-decoration: none;
+            border-bottom: 1px solid var(--bg-secondary);
+            transition: all 0.2s ease;
+        }
+
+        .dropdown-item:last-child {
+            border-bottom: none;
+        }
+
+        .dropdown-item:hover {
+            background: var(--bg-secondary);
+            color: var(--accent-primary);
+        }
+
+        /* Table */
+        .table-wrapper {
+            overflow-x: auto;
+            margin: 24px 0;
+        }
+
+        .table {
+            width: 100%;
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
+            overflow: hidden;
+            background: var(--bg-primary);
+        }
+
+        .table th,
+        .table td {
+            padding: 16px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .table th {
+            background: var(--bg-secondary);
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .table tbody tr:hover {
+            background: var(--bg-secondary);
+        }
+
+        .table tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* Pagination */
+        .pagination {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            margin: 24px 0;
+        }
+
+        .pagination-item {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 40px;
+            height: 40px;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.2s ease;
+            box-shadow: 2px 2px 0px var(--border-color);
+        }
+
+        .pagination-item:hover {
+            transform: translate(-1px, -1px);
+            box-shadow: 3px 3px 0px var(--border-color);
+        }
+
+        .pagination-item.active {
+            background: var(--accent-primary);
+            color: var(--text-accent);
+        }
+
+        .pagination-item.disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* Breadcrumbs */
+        .breadcrumbs {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+
+        .breadcrumb-item {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .breadcrumb-item:hover {
+            color: var(--accent-primary);
+        }
+
+        .breadcrumb-item.active {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        .breadcrumb-separator {
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+
+        /* Loading Spinner */
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid var(--bg-secondary);
+            border-top: 4px solid var(--accent-primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Tooltip */
+        .tooltip {
+            position: relative;
+            display: inline-block;
+        }
+
+        .tooltip::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--border-color);
+            color: var(--text-accent);
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 500;
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.2s ease;
+            margin-bottom: 8px;
+            box-shadow: 2px 2px 0px var(--shadow-secondary);
+        }
+
+        .tooltip:hover::after {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Accordion */
+        .accordion {
+            margin: 24px 0;
+        }
+
+        .accordion-item {
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
+            margin-bottom: 8px;
+            overflow: hidden;
+            background: var(--bg-primary);
+        }
+
+        .accordion-header {
+            padding: 16px 20px;
+            background: var(--bg-secondary);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            color: var(--text-primary);
+            transition: all 0.2s ease;
+        }
+
+        .accordion-header:hover {
+            background: var(--accent-primary);
+            color: var(--text-accent);
+        }
+
+        .accordion-content {
+            padding: 0 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .accordion-item.active .accordion-content {
+            padding: 20px;
+            max-height: 500px;
+        }
+
+        .accordion-icon {
+            transition: transform 0.3s ease;
+        }
+
+        .accordion-item.active .accordion-icon {
+            transform: rotate(180deg);
+        }
+
+        /* Statistics Cards */
+        .stat-card {
+            background: var(--bg-primary);
+            border: var(--border-width) var(--border-style) var(--border-color);
+            border-radius: var(--corner-radius);
+            padding: 24px;
+            text-align: center;
+            box-shadow: 4px 4px 0px var(--shadow-primary);
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: 6px 6px 0px var(--shadow-primary);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--accent-primary);
+            margin-bottom: 8px;
+            text-shadow: 2px 2px 0px var(--shadow-secondary);
+        }
+
+        .stat-label {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .stat-change {
+            margin-top: 8px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .stat-change.positive {
+            color: var(--success-color);
+        }
+
+        .stat-change.negative {
+            color: var(--error-color);
+        }
+
+        /* Feedback Form */
+        .feedback-form {
+            background: var(--bg-primary);
+            border: var(--border-width) var(--border-style) var(--accent-primary);
+            border-radius: var(--corner-radius);
+            padding: 40px;
+            box-shadow: 8px 8px 0px var(--accent-primary);
+            margin: 48px 0;
+            position: relative;
+        }
+
+        .feedback-form::before {
+            content: '💌';
+            position: absolute;
+            top: -20px;
+            right: 20px;
+            font-size: 2rem;
+            background: var(--bg-primary);
+            border: var(--border-width) var(--border-style) var(--accent-primary);
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 4px 4px 0px var(--accent-primary);
+        }
+
+        .form-header {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .form-header h3 {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--text-primary);
+            margin-bottom: 12px;
+            text-shadow: 2px 2px 0px var(--accent-primary);
+        }
+
+        .form-header p {
+            font-size: 1.125rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+            margin-bottom: 24px;
+        }
+
+        /* Alert Components */
+        .alert {
+            padding: 20px 24px;
+            border: var(--border-width) var(--border-style) var(--border-color);
+            border-radius: 12px;
+            margin: 16px 0;
+            position: relative;
+            box-shadow: 4px 4px 0px var(--border-color);
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .alert-success {
+            background: var(--success-color);
+            color: white;
+            border-color: var(--border-color);
+        }
+
+        .alert-warning {
+            background: var(--warning-color);
+            color: white;
+            border-color: var(--border-color);
+        }
+
+        .alert-error {
+            background: var(--error-color);
+            color: white;
+            border-color: var(--border-color);
+        }
+
+        .alert-info {
+            background: var(--info-color);
+            color: white;
+            border-color: var(--border-color);
+        }
+
+        .alert.hidden {
+            display: none;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 48px 0;
+            border-top: 2px solid var(--border-color);
+            margin-top: 64px;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 32px;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+        }
+
+        .footer-link {
+            color: var(--accent-primary);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 15px;
+            transition: all 0.2s ease;
+        }
+
+        .footer-link:hover {
+            text-decoration: underline;
+            transform: translateY(-1px);
+        }
+
+        .footer p {
+            color: var(--text-secondary);
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            body {
+                padding: 16px;
+            }
+
+            .container {
+                padding: 0 16px;
+            }
+
+            .header h1 {
+                font-size: 2.5rem;
+            }
+
+            .component-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .theme-categories {
+                grid-template-columns: 1fr;
+            }
+
+            .btn-group {
+                flex-direction: column;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-links {
+                flex-direction: column;
+                gap: 16px;
+            }
+
+            .component-section {
+                padding: 32px 24px;
+            }
+
+            .feedback-form {
+                padding: 32px 24px;
+            }
+
+            .nav {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .nav-links {
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+
+            .tab-buttons {
+                flex-wrap: wrap;
+            }
+        }
+
+        /* Loading State */
+        .loading {
+            pointer-events: none;
+            opacity: 0.7;
+        }
+
+        .loading::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 20px;
+            height: 20px;
+            border: 2px solid transparent;
+            border-top: 2px solid var(--accent-primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        /* Utility Classes */
+        .flex {
+            display: flex;
+        }
+
+        .flex-wrap {
+            flex-wrap: wrap;
+        }
+
+        .gap-10 {
+            gap: 10px;
+        }
+
+        .gap-20 {
+            gap: 20px;
+        }
+
+        .mb-20 {
+            margin-bottom: 20px;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .full-width {
+            width: 100%;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>NeoBrutal Kit</h1>
+            <p class="subtitle">Professional Neubrutalism Component Library</p>
+            <p class="description">
+                Pixel-perfect, bold, and modern UI components designed for creating stunning interfaces with the
+                distinctive neubrutalism aesthetic.
+            </p>
+            <a href="https://burning-hat.com" target="_blank" rel="noopener" class="creator-info">
+                <div class="creator-logo">
+                    <img src="https://images.unsplash.com/photo-1557804506-669a67965ba0?w=64&h=64&fit=crop&crop=face"
+                        alt="BurningHat Logo">
+                </div>
+                Created by BurningHat
+            </a>
+        </div>
+
+        <!-- Navigation Example -->
+        <nav class="nav">
+            <a href="#" class="nav-brand">
+                <i class="ri-fire-fill"></i>
+                NeoBrutal
+            </a>
+            <div class="nav-links">
+                <a href="#" class="nav-link active">Components</a>
+                <a href="#" class="nav-link">Examples</a>
+                <a href="#" class="nav-link">Documentation</a>
+                <a href="#" class="nav-link">Support</a>
+            </div>
+            <div class="nav-actions">
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" onclick="toggleDropdown(event)">
+                        <i class="ri-user-line"></i>
+                        Account
+                        <i class="ri-arrow-down-s-line"></i>
+                    </button>
+                    <div class="dropdown-menu">
+                        <a href="#" class="dropdown-item">
+                            <i class="ri-user-line"></i> Profile
+                        </a>
+                        <a href="#" class="dropdown-item">
+                            <i class="ri-settings-line"></i> Settings
+                        </a>
+                        <a href="#" class="dropdown-item">
+                            <i class="ri-logout-box-line"></i> Logout
+                        </a>
+                    </div>
+                </div>
+                <button class="btn" onclick="openModal()">
+                    <i class="ri-add-line"></i>
+                    Get Started
+                </button>
+            </div>
+        </nav>
+
+        <!-- Theme Switcher -->
+        <div class="theme-switcher">
+            <h3>🎨 Choose Your Style</h3>
+            <div class="theme-categories">
+                <div class="theme-category">
+                    <div class="category-title">Classic</div>
+                    <div class="theme-buttons">
+                        <button class="theme-btn active" onclick="switchTheme('classic')">Original</button>
+                        <button class="theme-btn" onclick="switchTheme('minimal')">Minimal</button>
+                        <button class="theme-btn" onclick="switchTheme('corporate')">Corporate</button>
+                    </div>
+                </div>
+                <div class="theme-category">
+                    <div class="category-title">Atmosphere</div>
+                    <div class="theme-buttons">
+                        <button class="theme-btn" onclick="switchTheme('warm')">Warm</button>
+                        <button class="theme-btn" onclick="switchTheme('dark')">Dark</button>
+                        <button class="theme-btn" onclick="switchTheme('sunset')">Sunset</button>
+                        <button class="theme-btn" onclick="switchTheme('ocean')">Ocean</button>
+                    </div>
+                </div>
+                <div class="theme-category">
+                    <div class="category-title">Retro/Vintage</div>
+                    <div class="theme-buttons">
+                        <button class="theme-btn" onclick="switchTheme('retro')">80s Retro</button>
+                        <button class="theme-btn" onclick="switchTheme('vintage')">Vintage</button>
+                        <button class="theme-btn" onclick="switchTheme('newspaper')">Newspaper</button>
+                    </div>
+                </div>
+                <div class="theme-category">
+                    <div class="category-title">Modern</div>
+                    <div class="theme-buttons">
+                        <button class="theme-btn" onclick="switchTheme('cyberpunk')">Cyberpunk</button>
+                        <button class="theme-btn" onclick="switchTheme('neon')">Neon</button>
+                        <button class="theme-btn" onclick="switchTheme('glassmorphism')">Glass</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Breadcrumbs Example -->
+        <div class="breadcrumbs">
+            <a href="#" class="breadcrumb-item">
+                <i class="ri-home-line"></i> Home
+            </a>
+            <span class="breadcrumb-separator">
+                <i class="ri-arrow-right-s-line"></i>
+            </span>
+            <a href="#" class="breadcrumb-item">Components</a>
+            <span class="breadcrumb-separator">
+                <i class="ri-arrow-right-s-line"></i>
+            </span>
+            <span class="breadcrumb-item active">UI Elements</span>
+        </div>
+
+        <!-- Statistics Cards -->
+        <div class="component-section">
+            <h2 class="section-title">Statistics & Metrics</h2>
+            <p class="section-description">Eye-catching statistics cards for dashboards and analytics</p>
+
+            <div class="grid-3">
+                <div class="stat-card">
+                    <div class="stat-number">47.2K</div>
+                    <div class="stat-label">Total Users</div>
+                    <div class="stat-change positive">
+                        <i class="ri-arrow-up-line"></i> +23.1%
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-number">$128K</div>
+                    <div class="stat-label">Revenue</div>
+                    <div class="stat-change positive">
+                        <i class="ri-arrow-up-line"></i> +12.5%
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-number">94.3%</div>
+                    <div class="stat-label">Uptime</div>
+                    <div class="stat-change negative">
+                        <i class="ri-arrow-down-line"></i> -0.8%
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Button Components -->
+        <div class="component-section">
+            <h2 class="section-title">Buttons & Actions</h2>
+            <p class="section-description">Interactive button components with various styles and perfect hover
+                animations</p>
+
+            <div class="component-grid">
+                <div class="component-showcase">
+                    <h3 class="component-title">Primary Buttons</h3>
+                    <div class="component-examples">
+                        <button class="btn">
+                            <i class="ri-rocket-line"></i>
+                            Primary Button
+                        </button>
+                        <button class="btn btn-large">
+                            <i class="ri-star-line"></i>
+                            Large Button
+                        </button>
+                        <button class="btn btn-small">
+                            <i class="ri-heart-line"></i>
+                            Small Button
+                        </button>
+                    </div>
+                </div>
+
+                <div class="component-showcase">
+                    <h3 class="component-title">Button Variants</h3>
+                    <div class="component-examples">
+                        <button class="btn btn-secondary">
+                            <i class="ri-settings-line"></i>
+                            Secondary
+                        </button>
+                        <button class="btn btn-success">
+                            <i class="ri-check-line"></i>
+                            Success
+                        </button>
+                        <button class="btn btn-warning">
+                            <i class="ri-alert-line"></i>
+                            Warning
+                        </button>
+                        <button class="btn btn-error">
+                            <i class="ri-close-line"></i>
+                            Error
+                        </button>
+                    </div>
+                </div>
+
+                <div class="component-showcase">
+                    <h3 class="component-title">Icon Buttons</h3>
+                    <div class="component-examples">
+                        <div class="btn-group">
+                            <button class="btn btn-icon-only tooltip" data-tooltip="Edit">
+                                <i class="ri-edit-line"></i>
+                            </button>
+                            <button class="btn btn-secondary btn-icon-only tooltip" data-tooltip="Share">
+                                <i class="ri-share-line"></i>
+                            </button>
+                            <button class="btn btn-icon-only tooltip" data-tooltip="Delete">
+                                <i class="ri-delete-bin-line"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Form Elements -->
+        <div class="component-section">
+            <h2 class="section-title">Form Elements</h2>
+            <p class="section-description">Perfectly designed form components with focus states and accessibility</p>
+
+            <div class="component-grid">
+                <div class="component-showcase">
+                    <h3 class="component-title">Text Inputs</h3>
+                    <div class="component-examples">
+                        <div class="form-group">
+                            <label class="label">Full Name</label>
+                            <div class="input-group">
+                                <i class="ri-user-line"></i>
+                                <input type="text" class="input" placeholder="Enter your full name">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="label">Email Address</label>
+                            <div class="input-group">
+                                <i class="ri-mail-line"></i>
+                                <input type="email" class="input" placeholder="your@email.com">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="label">Search</label>
+                            <div class="input-group">
+                                <i class="ri-search-line"></i>
+                                <input type="text" class="input" placeholder="Search anything...">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="component-showcase">
+                    <h3 class="component-title">Interactive Controls</h3>
+                    <div class="component-examples">
+                        <div class="form-group">
+                            <label class="label">Select Option</label>
+                            <select class="select">
+                                <option>Choose an option</option>
+                                <option>Option 1</option>
+                                <option>Option 2</option>
+                                <option>Option 3</option>
+                            </select>
+                        </div>
+                        <div class="checkbox-wrapper">
+                            <input type="checkbox" class="checkbox" id="demo-check1">
+                            <label for="demo-check1">Enable notifications</label>
+                        </div>
+                        <div class="checkbox-wrapper">
+                            <input type="checkbox" class="checkbox" id="demo-check2" checked>
+                            <label for="demo-check2">Accept terms and conditions</label>
+                        </div>
+                        <div class="toggle-wrapper">
+                            <input type="checkbox" class="toggle" id="demo-toggle1">
+                            <label for="demo-toggle1">Dark mode</label>
+                        </div>
+                        <div class="toggle-wrapper">
+                            <input type="checkbox" class="toggle" id="demo-toggle2" checked>
+                            <label for="demo-toggle2">Auto-save</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="component-showcase">
+                    <h3 class="component-title">Range & Progress</h3>
+                    <div class="component-examples">
+                        <div class="range-wrapper">
+                            <label class="label">Volume</label>
+                            <input type="range" class="range" min="0" max="100" value="75">
+                        </div>
+                        <div class="progress-wrapper">
+                            <div class="progress-label">
+                                <span>Progress</span>
+                                <span>75%</span>
+                            </div>
+                            <div class="progress">
+                                <div class="progress-bar" style="width: 75%"></div>
+                            </div>
+                        </div>
+                        <div class="progress-wrapper">
+                            <div class="progress-label">
+                                <span>Loading</span>
+                                <span>42%</span>
+                            </div>
+                            <div class="progress">
+                                <div class="progress-bar" style="width: 42%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Badges & Tags -->
+        <div class="component-section">
+            <h2 class="section-title">Badges & Tags</h2>
+            <p class="section-description">Status indicators and labels for better content organization</p>
+
+            <div class="component-grid">
+                <div class="component-showcase">
+                    <h3 class="component-title">Status Badges</h3>
+                    <div class="component-examples">
+                        <div class="flex flex-wrap gap-10">
+                            <span class="badge badge-primary">
+                                <i class="ri-star-line"></i>
+                                Featured
+                            </span>
+                            <span class="badge badge-success">
+                                <i class="ri-check-line"></i>
+                                Completed
+                            </span>
+                            <span class="badge badge-warning">
+                                <i class="ri-time-line"></i>
+                                Pending
+                            </span>
+                            <span class="badge badge-error">
+                                <i class="ri-close-line"></i>
+                                Failed
+                            </span>
+                            <span class="badge badge-info">
+                                <i class="ri-information-line"></i>
+                                New
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="component-showcase">
+                    <h3 class="component-title">Category Tags</h3>
+                    <div class="component-examples">
+                        <div class="flex flex-wrap gap-10">
+                            <span class="badge badge-secondary">Design</span>
+                            <span class="badge badge-secondary">Frontend</span>
+                            <span class="badge badge-secondary">React</span>
+                            <span class="badge badge-secondary">CSS</span>
+                            <span class="badge badge-secondary">JavaScript</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation & Tabs -->
+        <div class="component-section">
+            <h2 class="section-title">Navigation & Tabs</h2>
+            <p class="section-description">Organized content navigation with smooth interactions</p>
+
+            <div class="component-grid">
+                <div class="component-showcase">
+                    <h3 class="component-title">Tab Navigation</h3>
+                    <div class="component-examples">
+                        <div class="tabs">
+                            <div class="tab-buttons">
+                                <button class="tab-button active" onclick="switchTab(event, 'tab1')">
+                                    <i class="ri-dashboard-line"></i>
+                                    Dashboard
+                                </button>
+                                <button class="tab-button" onclick="switchTab(event, 'tab2')">
+                                    <i class="ri-bar-chart-line"></i>
+                                    Analytics
+                                </button>
+                                <button class="tab-button" onclick="switchTab(event, 'tab3')">
+                                    <i class="ri-settings-line"></i>
+                                    Settings
+                                </button>
+                            </div>
+                            <div id="tab1" class="tab-content active">
+                                <h4>Dashboard Content</h4>
+                                <p>Welcome to your dashboard! Here you can see an overview of your account and recent
+                                    activity.</p>
+                            </div>
+                            <div id="tab2" class="tab-content">
+                                <h4>Analytics Content</h4>
+                                <p>View detailed analytics and insights about your performance and engagement metrics.
+                                </p>
+                            </div>
+                            <div id="tab3" class="tab-content">
+                                <h4>Settings Content</h4>
+                                <p>Customize your account settings, preferences, and notification options.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="component-showcase">
+                    <h3 class="component-title">Pagination</h3>
+                    <div class="component-examples">
+                        <div class="pagination">
+                            <a href="#" class="pagination-item disabled">
+                                <i class="ri-arrow-left-line"></i>
+                            </a>
+                            <a href="#" class="pagination-item active">1</a>
+                            <a href="#" class="pagination-item">2</a>
+                            <a href="#" class="pagination-item">3</a>
+                            <span class="pagination-item">...</span>
+                            <a href="#" class="pagination-item">10</a>
+                            <a href="#" class="pagination-item">
+                                <i class="ri-arrow-right-line"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Accordion & Dropdowns -->
+        <div class="component-section">
+            <h2 class="section-title">Collapsible Content</h2>
+            <p class="section-description">Expandable content sections for better space management</p>
+
+            <div class="component-grid">
+                <div class="component-showcase">
+                    <h3 class="component-title">Accordion</h3>
+                    <div class="component-examples">
+                        <div class="accordion">
+                            <div class="accordion-item" onclick="toggleAccordion(this)">
+                                <div class="accordion-header">
+                                    <span>
+                                        <i class="ri-question-line"></i>
+                                        What is NeoBrutalism?
+                                    </span>
+                                    <i class="ri-arrow-down-s-line accordion-icon"></i>
+                                </div>
+                                <div class="accordion-content">
+                                    <p>Neubrutalism is a design style that combines bold typography, bright colors, and
+                                        intentionally 'ugly' or anti-aesthetic elements to create visually striking
+                                        interfaces.</p>
+                                </div>
+                            </div>
+                            <div class="accordion-item" onclick="toggleAccordion(this)">
+                                <div class="accordion-header">
+                                    <span>
+                                        <i class="ri-palette-line"></i>
+                                        How to customize themes?
+                                    </span>
+                                    <i class="ri-arrow-down-s-line accordion-icon"></i>
+                                </div>
+                                <div class="accordion-content">
+                                    <p>You can easily customize themes by modifying the CSS custom properties in the
+                                        theme definitions. Each theme has its own color palette and styling rules.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="component-showcase">
+                    <h3 class="component-title">Loading States</h3>
+                    <div class="component-examples">
+                        <div class="spinner"></div>
+                        <button class="btn" onclick="toggleLoading(this)">
+                            <i class="ri-download-line"></i>
+                            Download File
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tables & Data -->
+        <div class="component-section">
+            <h2 class="section-title">Tables & Data Display</h2>
+            <p class="section-description">Clean and organized data presentation components</p>
+
+            <div class="component-showcase">
+                <h3 class="component-title">Data Table</h3>
+                <div class="component-examples">
+                    <div class="table-wrapper">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        <i class="ri-user-line"></i>
+                                        Name
+                                    </th>
+                                    <th>
+                                        <i class="ri-mail-line"></i>
+                                        Email
+                                    </th>
+                                    <th>
+                                        <i class="ri-calendar-line"></i>
+                                        Date
+                                    </th>
+                                    <th>
+                                        <i class="ri-eye-line"></i>
+                                        Status
+                                    </th>
+                                    <th>
+                                        <i class="ri-settings-line"></i>
+                                        Actions
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>John Doe</td>
+                                    <td>john@example.com</td>
+                                    <td>2025-06-20</td>
+                                    <td><span class="badge badge-success">Active</span></td>
+                                    <td>
+                                        <button class="btn btn-small">
+                                            <i class="ri-edit-line"></i>
+                                            Edit
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Jane Smith</td>
+                                    <td>jane@example.com</td>
+                                    <td>2025-06-19</td>
+                                    <td><span class="badge badge-warning">Pending</span></td>
+                                    <td>
+                                        <button class="btn btn-small">
+                                            <i class="ri-edit-line"></i>
+                                            Edit
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Mike Johnson</td>
+                                    <td>mike@example.com</td>
+                                    <td>2025-06-18</td>
+                                    <td><span class="badge badge-error">Inactive</span></td>
+                                    <td>
+                                        <button class="btn btn-small">
+                                            <i class="ri-edit-line"></i>
+                                            Edit
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Cards & Content -->
+        <div class="component-section">
+            <h2 class="section-title">Cards & Content</h2>
+            <p class="section-description">Content containers that make your information stand out with style</p>
+
+            <div class="component-grid">
+                <div class="card">
+                    <h3>
+                        <i class="ri-rocket-line"></i>
+                        Feature Card
+                    </h3>
+                    <p>This card showcases how content looks with the perfect balance of typography, spacing, and visual
+                        hierarchy.</p>
+                    <button class="btn btn-small">
+                        <i class="ri-arrow-right-line"></i>
+                        Learn More
+                    </button>
+                </div>
+
+                <div class="card">
+                    <h3>
+                        <i class="ri-bar-chart-line"></i>
+                        Stats Display
+                    </h3>
+                    <div style="font-size: 2.5rem; font-weight: 800; color: var(--accent-primary); margin: 16px 0;">
+                        $47.2K
+                    </div>
+                    <p style="margin-bottom: 0;">Monthly revenue with 23% growth</p>
+                </div>
+
+                <div class="card">
+                    <h3>
+                        <i class="ri-megaphone-line"></i>
+                        Action Card
+                    </h3>
+                    <p>Perfect for call-to-action sections and important announcements that need attention.</p>
+                    <div class="flex gap-10">
+                        <button class="btn btn-small">
+                            <i class="ri-check-line"></i>
+                            Primary
+                        </button>
+                        <button class="btn btn-secondary btn-small">
+                            <i class="ri-arrow-right-line"></i>
+                            Secondary
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Alerts & Messages -->
+        <div class="component-section">
+            <h2 class="section-title">Alerts & Messages</h2>
+            <p class="section-description">Status messages that communicate clearly with users</p>
+
+            <div class="component-grid">
+                <div class="component-showcase">
+                    <h3 class="component-title">Status Alerts</h3>
+                    <div class="component-examples">
+                        <div class="alert alert-success">
+                            <i class="ri-check-line"></i>
+                            <div>
+                                <strong>Success!</strong> Your changes have been saved successfully.
+                            </div>
+                        </div>
+                        <div class="alert alert-warning">
+                            <i class="ri-alert-line"></i>
+                            <div>
+                                <strong>Warning!</strong> Please review your input before proceeding.
+                            </div>
+                        </div>
+                        <div class="alert alert-error">
+                            <i class="ri-close-circle-line"></i>
+                            <div>
+                                <strong>Error!</strong> Something went wrong. Please try again.
+                            </div>
+                        </div>
+                        <div class="alert alert-info">
+                            <i class="ri-information-line"></i>
+                            <div>
+                                <strong>Info:</strong> Here's some helpful information for you.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal Overlay -->
+        <div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
+            <div class="modal" onclick="event.stopPropagation()">
+                <div class="modal-header">
+                    <h3 class="modal-title">
+                        <i class="ri-rocket-line"></i>
+                        Get Started with NeoBrutal Kit
+                    </h3>
+                    <button class="modal-close" onclick="closeModal()">
+                        <i class="ri-close-line"></i>
+                    </button>
+                </div>
+                <div class="modal-content">
+                    <p>Ready to build something amazing with our neubrutalism components?</p>
+                    <div style="margin: 20px 0;">
+                        <div class="checkbox-wrapper">
+                            <input type="checkbox" class="checkbox" id="modal-updates">
+                            <label for="modal-updates">Send me updates about new components</label>
+                        </div>
+                    </div>
+                    <div class="flex gap-10">
+                        <button class="btn" onclick="closeModal()">
+                            <i class="ri-download-line"></i>
+                            Download Now
+                        </button>
+                        <button class="btn btn-secondary" onclick="closeModal()">
+                            <i class="ri-book-line"></i>
+                            Documentation
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Feedback Form -->
+        <div class="feedback-form">
+            <div class="form-header">
+                <h3>Love This Design?</h3>
+                <p>Get in touch with us to bring your neubrutalism vision to life!</p>
+            </div>
+
+            <form id="feedbackForm">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label class="label" for="user_name">Your Name *</label>
+                        <div class="input-group">
+                            <i class="ri-user-line"></i>
+                            <input type="text" id="user_name" name="user_name" class="input" placeholder="John Doe"
+                                required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="label" for="user_email">Your Email *</label>
+                        <div class="input-group">
+                            <i class="ri-mail-line"></i>
+                            <input type="email" id="user_email" name="user_email" class="input"
+                                placeholder="john@example.com" required>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="label" for="project_type">Project Type</label>
+                    <select id="project_type" name="project_type" class="select">
+                        <option value="">Select project type</option>
+                        <option value="Website Design">Website Design</option>
+                        <option value="Mobile App">Mobile App</option>
+                        <option value="Dashboard">Dashboard/Admin Panel</option>
+                        <option value="E-commerce">E-commerce Platform</option>
+                        <option value="Component Library">Custom Component Library</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="label" for="message">Tell us about your project *</label>
+                    <textarea id="message" name="message" class="input" rows="4"
+                        placeholder="Describe your vision, timeline, and any specific requirements..."
+                        required></textarea>
+                </div>
+
+                <div class="checkbox-wrapper">
+                    <input type="checkbox" id="newsletter" name="newsletter" class="checkbox">
+                    <label for="newsletter">
+                        <i class="ri-notification-line"></i>
+                        Keep me updated on new components and design trends
+                    </label>
+                </div>
+
+                <div class="text-center">
+                    <button type="submit" class="btn btn-large">
+                        <i class="ri-send-plane-line"></i>
+                        Send Project Inquiry
+                    </button>
+                </div>
+            </form>
+
+            <div id="successAlert" class="alert alert-success hidden">
+                <i class="ri-check-line"></i>
+                <div>
+                    <strong>Success!</strong> Your message has been sent. We'll get back to you within 24 hours!
+                </div>
+            </div>
+
+            <div id="errorAlert" class="alert alert-error hidden">
+                <i class="ri-close-circle-line"></i>
+                <div>
+                    <strong>Error!</strong> Something went wrong. Please try again or email us directly at
+                    burninghat20@gmail.com
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <div class="footer-links">
+                <a href="https://burning-hat.com" target="_blank" rel="noopener" class="footer-link">
+                    <i class="ri-fire-line"></i>
+                    BurningHat Studio
+                </a>
+                <a href="mailto:burninghat20@gmail.com" class="footer-link">
+                    <i class="ri-mail-line"></i>
+                    Email Us
+                </a>
+                <a href="https://burning-hat.com/portfolio" target="_blank" rel="noopener" class="footer-link">
+                    <i class="ri-palette-line"></i>
+                    Our Work
+                </a>
+                <a href="https://burning-hat.com/contact" target="_blank" rel="noopener" class="footer-link">
+                    <i class="ri-chat-3-line"></i>
+                    Contact
+                </a>
+            </div>
+            <p>© 2025 BurningHat Studio. Crafted with ❤️ for the bold and creative.</p>
+        </div>
+    </div>
+
+    <script>
+        // Initialize EmailJS
+        (function () {
+            emailjs.init("rn5qnsUXay0z1I1eo");
+        })();
+
+        // Theme definitions
+        const themes = {
+            classic: {
+                '--bg-primary': '#ffffff',
+                '--bg-secondary': '#f8f9fa',
+                '--bg-gradient': 'linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%)',
+                '--text-primary': '#000000',
+                '--text-secondary': '#6c757d',
+                '--text-accent': '#ffffff',
+                '--border-color': '#000000',
+                '--shadow-primary': '#ff6b35',
+                '--shadow-secondary': '#000000',
+                '--accent-primary': '#ff6b35',
+                '--texture-pattern': 'none',
+                '--border-style': 'solid',
+                '--border-width': '3px',
+                '--corner-radius': '16px'
+            },
+            minimal: {
+                '--bg-primary': '#ffffff',
+                '--bg-secondary': '#f9f9f9',
+                '--bg-gradient': 'linear-gradient(135deg, #ffffff 0%, #f9f9f9 100%)',
+                '--text-primary': '#000000',
+                '--text-secondary': '#888888',
+                '--text-accent': '#ffffff',
+                '--border-color': '#000000',
+                '--shadow-primary': '#000000',
+                '--shadow-secondary': '#000000',
+                '--accent-primary': '#000000',
+                '--texture-pattern': 'none',
+                '--border-style': 'solid',
+                '--border-width': '2px',
+                '--corner-radius': '8px'
+            },
+            corporate: {
+                '--bg-primary': '#fefefe',
+                '--bg-secondary': '#f1f5f9',
+                '--bg-gradient': 'linear-gradient(135deg, #fefefe 0%, #f1f5f9 100%)',
+                '--text-primary': '#0f172a',
+                '--text-secondary': '#64748b',
+                '--text-accent': '#ffffff',
+                '--border-color': '#334155',
+                '--shadow-primary': '#06b6d4',
+                '--shadow-secondary': '#8b5cf6',
+                '--accent-primary': '#06b6d4',
+                '--texture-pattern': 'none',
+                '--border-style': 'solid',
+                '--border-width': '3px',
+                '--corner-radius': '12px'
+            },
+            warm: {
+                '--bg-primary': '#fefdf8',
+                '--bg-secondary': '#f4f1e8',
+                '--bg-gradient': 'linear-gradient(135deg, #fefdf8 0%, #f4f1e8 100%)',
+                '--text-primary': '#2d1810',
+                '--text-secondary': '#8b6f47',
+                '--text-accent': '#fefdf8',
+                '--border-color': '#8b4513',
+                '--shadow-primary': '#ff7f50',
+                '--shadow-secondary': '#cd853f',
+                '--accent-primary': '#ff7f50',
+                '--texture-pattern': 'radial-gradient(circle at 50% 50%, #d2b48c 1px, transparent 1px)',
+                '--border-style': 'solid',
+                '--border-width': '3px',
+                '--corner-radius': '16px'
+            },
+            dark: {
+                '--bg-primary': '#1a1a1a',
+                '--bg-secondary': '#0f0f0f',
+                '--bg-gradient': 'linear-gradient(135deg, #1a1a1a 0%, #0f0f0f 100%)',
+                '--text-primary': '#ffffff',
+                '--text-secondary': '#a3a3a3',
+                '--text-accent': '#000000',
+                '--border-color': '#404040',
+                '--shadow-primary': '#7c3aed',
+                '--shadow-secondary': '#404040',
+                '--accent-primary': '#7c3aed',
+                '--texture-pattern': 'radial-gradient(circle at 25% 25%, #333 1px, transparent 1px)',
+                '--border-style': 'solid',
+                '--border-width': '3px',
+                '--corner-radius': '16px'
+            },
+            sunset: {
+                '--bg-primary': '#fff5f5',
+                '--bg-secondary': '#fed7d7',
+                '--bg-gradient': 'linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #fecfef 100%)',
+                '--text-primary': '#742a2a',
+                '--text-secondary': '#a0616a',
+                '--text-accent': '#ffffff',
+                '--border-color': '#742a2a',
+                '--shadow-primary': '#f093fb',
+                '--shadow-secondary': '#f5576c',
+                '--accent-primary': '#f5576c',
+                '--texture-pattern': 'none',
+                '--border-style': 'solid',
+                '--border-width': '3px',
+                '--corner-radius': '20px'
+            },
+            ocean: {
+                '--bg-primary': '#f0fdff',
+                '--bg-secondary': '#cffafe',
+                '--bg-gradient': 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                '--text-primary': '#083344',
+                '--text-secondary': '#0891b2',
+                '--text-accent': '#ffffff',
+                '--border-color': '#083344',
+                '--shadow-primary': '#06b6d4',
+                '--shadow-secondary': '#0891b2',
+                '--accent-primary': '#0891b2',
+                '--texture-pattern': 'repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(6, 182, 212, 0.1) 10px, rgba(6, 182, 212, 0.1) 20px)',
+                '--border-style': 'solid',
+                '--border-width': '3px',
+                '--corner-radius': '16px'
+            },
+            retro: {
+                '--bg-primary': '#1a0033',
+                '--bg-secondary': '#2d1b69',
+                '--bg-gradient': 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                '--text-primary': '#ffffff',
+                '--text-secondary': '#f72585',
+                '--text-accent': '#000000',
+                '--border-color': '#f72585',
+                '--shadow-primary': '#4cc9f0',
+                '--shadow-secondary': '#f72585',
+                '--accent-primary': '#4cc9f0',
+                '--texture-pattern': 'repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(247, 37, 133, 0.1) 2px, rgba(247, 37, 133, 0.1) 4px)',
+                '--border-style': 'solid',
+                '--border-width': '4px',
+                '--corner-radius': '4px'
+            },
+            vintage: {
+                '--bg-primary': '#f5f5dc',
+                '--bg-secondary': '#deb887',
+                '--bg-gradient': 'linear-gradient(135deg, #f5f5dc 0%, #deb887 100%)',
+                '--text-primary': '#2f1b14',
+                '--text-secondary': '#8b4513',
+                '--text-accent': '#f5f5dc',
+                '--border-color': '#2f1b14',
+                '--shadow-primary': '#d2691e',
+                '--shadow-secondary': '#2f1b14',
+                '--accent-primary': '#d2691e',
+                '--texture-pattern': 'radial-gradient(circle at 50% 50%, rgba(139, 69, 19, 0.1) 2px, transparent 2px)',
+                '--border-style': 'solid',
+                '--border-width': '3px',
+                '--corner-radius': '8px'
+            },
+            newspaper: {
+                '--bg-primary': '#ffffff',
+                '--bg-secondary': '#f8f8f8',
+                '--bg-gradient': 'linear-gradient(135deg, #ffffff 0%, #f8f8f8 100%)',
+                '--text-primary': '#000000',
+                '--text-secondary': '#555555',
+                '--text-accent': '#ffffff',
+                '--border-color': '#000000',
+                '--shadow-primary': '#000000',
+                '--shadow-secondary': '#000000',
+                '--accent-primary': '#000000',
+                '--texture-pattern': 'repeating-linear-gradient(0deg, transparent, transparent 20px, rgba(0, 0, 0, 0.03) 20px, rgba(0, 0, 0, 0.03) 21px)',
+                '--border-style': 'solid',
+                '--border-width': '2px',
+                '--corner-radius': '0px'
+            },
+            cyberpunk: {
+                '--bg-primary': '#0a0a0a',
+                '--bg-secondary': '#1a1a2e',
+                '--bg-gradient': 'linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 100%)',
+                '--text-primary': '#00ff9f',
+                '--text-secondary': '#ff006e',
+                '--text-accent': '#000000',
+                '--border-color': '#00ff9f',
+                '--shadow-primary': '#ff006e',
+                '--shadow-secondary': '#00ff9f',
+                '--accent-primary': '#ff006e',
+                '--texture-pattern': 'repeating-linear-gradient(90deg, transparent, transparent 1px, rgba(0, 255, 159, 0.1) 1px, rgba(0, 255, 159, 0.1) 2px)',
+                '--border-style': 'solid',
+                '--border-width': '2px',
+                '--corner-radius': '4px'
+            },
+            neon: {
+                '--bg-primary': '#000000',
+                '--bg-secondary': '#111111',
+                '--bg-gradient': 'linear-gradient(135deg, #000000 0%, #111111 100%)',
+                '--text-primary': '#ffffff',
+                '--text-secondary': '#ff10f0',
+                '--text-accent': '#000000',
+                '--border-color': '#ff10f0',
+                '--shadow-primary': '#00ff00',
+                '--shadow-secondary': '#ff10f0',
+                '--accent-primary': '#00ff00',
+                '--texture-pattern': 'none',
+                '--border-style': 'solid',
+                '--border-width': '3px',
+                '--corner-radius': '16px'
+            },
+            glassmorphism: {
+                '--bg-primary': 'rgba(255, 255, 255, 0.25)',
+                '--bg-secondary': 'rgba(255, 255, 255, 0.18)',
+                '--bg-gradient': 'linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0))',
+                '--text-primary': '#2d3748',
+                '--text-secondary': '#4a5568',
+                '--text-accent': '#ffffff',
+                '--border-color': 'rgba(255, 255, 255, 0.18)',
+                '--shadow-primary': 'rgba(0, 0, 0, 0.1)',
+                '--shadow-secondary': 'rgba(0, 0, 0, 0.2)',
+                '--accent-primary': '#667eea',
+                '--texture-pattern': 'none',
+                '--border-style': 'solid',
+                '--border-width': '1px',
+                '--corner-radius': '20px'
+            }
+        };
+
+        // Theme switching function
+        function switchTheme(themeName, clickedElement) {
+            const root = document.documentElement;
+            const theme = themes[themeName];
+
+            if (!theme) return;
+
+            Object.keys(theme).forEach(property => {
+                root.style.setProperty(property, theme[property]);
+            });
+
+            // Update active button
+            document.querySelectorAll('.theme-btn').forEach(btn => btn.classList.remove('active'));
+
+            // Use the clicked element if provided (from a click event),
+            // otherwise don't try to update the active state here
+            if (clickedElement) {
+                clickedElement.classList.add('active');
+            }
+        }
+
+        document.querySelectorAll('.theme-btn').forEach(btn => {
+            btn.onclick = function () {
+                const themeName = this.getAttribute('onclick').match(/'([^']+)'/)[1];
+                switchTheme(themeName, this);
+            };
+        });
+
+        // Tab switching function
+        function switchTab(event, tabId) {
+            // Remove active class from all buttons and contents
+            document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+
+            // Add active class to clicked button and corresponding content
+            event.target.classList.add('active');
+            document.getElementById(tabId).classList.add('active');
+        }
+
+        // Modal functions
+        function openModal() {
+            document.getElementById('modalOverlay').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal(event) {
+            if (!event || event.target.classList.contains('modal-overlay') || event.target.closest('.modal-close')) {
+                document.getElementById('modalOverlay').classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+        }
+
+        // Dropdown function
+        function toggleDropdown(event) {
+            const dropdown = event.target.closest('.dropdown');
+            dropdown.classList.toggle('active');
+
+            // Close dropdown when clicking outside
+            document.addEventListener('click', function closeDropdown(e) {
+                if (!dropdown.contains(e.target)) {
+                    dropdown.classList.remove('active');
+                    document.removeEventListener('click', closeDropdown);
+                }
+            });
+        }
+
+        // Accordion function
+        function toggleAccordion(element) {
+            element.classList.toggle('active');
+        }
+
+        // Loading button function
+        function toggleLoading(button) {
+            button.classList.add('loading');
+            button.innerHTML = '<i class="ri-loader-line"></i> Loading...';
+
+            setTimeout(() => {
+                button.classList.remove('loading');
+                button.innerHTML = '<i class="ri-check-line"></i> Complete!';
+
+                setTimeout(() => {
+                    button.innerHTML = '<i class="ri-download-line"></i> Download File';
+                }, 2000);
+            }, 3000);
+        }
+
+        // Email form handling
+        document.getElementById('feedbackForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const submitBtn = e.target.querySelector('button[type="submit"]');
+            const successAlert = document.getElementById('successAlert');
+            const errorAlert = document.getElementById('errorAlert');
+
+            // Reset alerts
+            successAlert.classList.add('hidden');
+            errorAlert.classList.add('hidden');
+
+            // Add loading state
+            submitBtn.classList.add('loading');
+            submitBtn.innerHTML = '<i class="ri-loader-line"></i> Sending...';
+
+            // Prepare template parameters
+            const templateParams = {
+                user_name: document.getElementById('user_name').value,
+                user_email: document.getElementById('user_email').value,
+                project_type: document.getElementById('project_type').value || 'Not specified',
+                message: document.getElementById('message').value,
+                newsletter: document.getElementById('newsletter').checked ? 'Yes' : 'No',
+                timestamp: new Date().toLocaleString()
+            };
+
+            // Send email using EmailJS
+            emailjs.send('service_cib114o', 'template_dtr82cb', templateParams)
+                .then(function (response) {
+                    console.log('SUCCESS!', response.status, response.text);
+                    successAlert.classList.remove('hidden');
+                    document.getElementById('feedbackForm').reset();
+
+                    // Scroll to success message
+                    successAlert.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }, function (error) {
+                    console.log('FAILED...', error);
+                    errorAlert.classList.remove('hidden');
+
+                    // Scroll to error message
+                    errorAlert.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                })
+                .finally(function () {
+                    // Remove loading state
+                    submitBtn.classList.remove('loading');
+                    submitBtn.innerHTML = '<i class="ri-send-plane-line"></i> Send Project Inquiry';
+                });
+        });
+
+        // Enhanced card hover effects
+        document.querySelectorAll('.card').forEach(card => {
+            card.addEventListener('mouseenter', function () {
+                this.style.transform = 'translate(-4px, -4px)';
+                this.style.boxShadow = '8px 8px 0px var(--shadow-primary)';
+            });
+
+            card.addEventListener('mouseleave', function () {
+                this.style.transform = 'translate(0, 0)';
+                this.style.boxShadow = '';
+            });
+        });
+
+        // Stat card animation on scroll
+        function animateStatsOnScroll() {
+            const statNumbers = document.querySelectorAll('.stat-number');
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const target = entry.target;
+                        const finalValue = target.textContent;
+                        let currentValue = 0;
+                        const increment = parseFloat(finalValue.replace(/[^\d.]/g, '')) / 50;
+                        const isPercent = finalValue.includes('%');
+                        const isDollar = finalValue.includes('$');
+                        const suffix = finalValue.replace(/[\d.]/g, '');
+
+                        const timer = setInterval(() => {
+                            currentValue += increment;
+                            if (currentValue >= parseFloat(finalValue.replace(/[^\d.]/g, ''))) {
+                                currentValue = parseFloat(finalValue.replace(/[^\d.]/g, ''));
+                                clearInterval(timer);
+                            }
+
+                            let displayValue = currentValue.toFixed(1);
+                            if (isDollar) {
+                                target.textContent = '$' + displayValue + 'K';
+                            } else if (isPercent) {
+                                target.textContent = displayValue + '%';
+                            } else {
+                                target.textContent = displayValue + 'K';
+                            }
+                        }, 20);
+
+                        observer.unobserve(target);
+                    }
+                });
+            });
+
+            statNumbers.forEach(stat => observer.observe(stat));
+        }
+
+        // Enhanced progress bar animation
+        function animateProgressBars() {
+            const progressBars = document.querySelectorAll('.progress-bar');
+
+            progressBars.forEach(bar => {
+                const width = bar.style.width;
+                bar.style.width = '0%';
+
+                setTimeout(() => {
+                    bar.style.width = width;
+                }, 500);
+            });
+        }
+
+        // Dynamic range value display
+        document.querySelectorAll('.range').forEach(range => {
+            const wrapper = range.closest('.range-wrapper');
+            const label = wrapper.querySelector('.label');
+            const originalText = label.textContent;
+
+            range.addEventListener('input', function () {
+                label.textContent = `${originalText}: ${this.value}%`;
+            });
+
+            range.addEventListener('mouseout', function () {
+                label.textContent = originalText;
+            });
+        });
+
+        // Enhanced button ripple effect
+        document.querySelectorAll('.btn').forEach(button => {
+            button.addEventListener('click', function (e) {
+                const ripple = document.createElement('span');
+                const rect = this.getBoundingClientRect();
+                const size = Math.max(rect.width, rect.height);
+                const x = e.clientX - rect.left - size / 2;
+                const y = e.clientY - rect.top - size / 2;
+
+                ripple.style.cssText = `
+                    position: absolute;
+                    width: ${size}px;
+                    height: ${size}px;
+                    left: ${x}px;
+                    top: ${y}px;
+                    background: rgba(255, 255, 255, 0.3);
+                    border-radius: 50%;
+                    transform: scale(0);
+                    animation: ripple 0.6s linear;
+                    pointer-events: none;
+                `;
+
+                this.style.position = 'relative';
+                this.style.overflow = 'hidden';
+                this.appendChild(ripple);
+
+                setTimeout(() => {
+                    ripple.remove();
+                }, 600);
+            });
+        });
+
+        // Add ripple animation keyframes
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes ripple {
+                to {
+                    transform: scale(2);
+                    opacity: 0;
+                }
+            }
+            
+            .tooltip-show {
+                opacity: 1 !important;
+                visibility: visible !important;
+            }
+            
+            .shake {
+                animation: shake 0.5s ease-in-out;
+            }
+            
+            @keyframes shake {
+                0%, 100% { transform: translateX(0); }
+                25% { transform: translateX(-5px); }
+                75% { transform: translateX(5px); }
+            }
+            
+            .pulse {
+                animation: pulse 2s infinite;
+            }
+            
+            @keyframes pulse {
+                0% { box-shadow: 0 0 0 0 var(--accent-primary); }
+                70% { box-shadow: 0 0 0 10px rgba(255, 107, 53, 0); }
+                100% { box-shadow: 0 0 0 0 rgba(255, 107, 53, 0); }
+            }
+            
+            .slide-in {
+                animation: slideIn 0.5s ease-out;
+            }
+            
+            @keyframes slideIn {
+                from { 
+                    opacity: 0; 
+                    transform: translateY(20px); 
+                }
+                to { 
+                    opacity: 1; 
+                    transform: translateY(0); 
+                }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Enhanced form validation with visual feedback
+        document.querySelectorAll('.input, .select').forEach(input => {
+            input.addEventListener('blur', function () {
+                if (this.hasAttribute('required') && !this.value.trim()) {
+                    this.style.borderColor = 'var(--error-color)';
+                    this.style.boxShadow = '4px 4px 0px var(--error-color)';
+                    this.classList.add('shake');
+                    setTimeout(() => this.classList.remove('shake'), 500);
+                } else {
+                    this.style.borderColor = 'var(--border-color)';
+                    this.style.boxShadow = '';
+                }
+            });
+
+            input.addEventListener('input', function () {
+                if (this.style.borderColor === 'var(--error-color)') {
+                    this.style.borderColor = 'var(--border-color)';
+                    this.style.boxShadow = '';
+                }
+            });
+        });
+
+        // Keyboard navigation for dropdowns
+        document.querySelectorAll('.dropdown').forEach(dropdown => {
+            const toggle = dropdown.querySelector('.dropdown-toggle');
+            const menu = dropdown.querySelector('.dropdown-menu');
+            const items = dropdown.querySelectorAll('.dropdown-item');
+            let currentIndex = -1;
+
+            toggle.addEventListener('keydown', function (e) {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    toggleDropdown({ target: this });
+                } else if (e.key === 'ArrowDown') {
+                    e.preventDefault();
+                    if (!dropdown.classList.contains('active')) {
+                        toggleDropdown({ target: this });
+                    }
+                    currentIndex = 0;
+                    items[currentIndex]?.focus();
+                }
+            });
+
+            items.forEach((item, index) => {
+                item.addEventListener('keydown', function (e) {
+                    if (e.key === 'ArrowDown') {
+                        e.preventDefault();
+                        currentIndex = Math.min(currentIndex + 1, items.length - 1);
+                        items[currentIndex].focus();
+                    } else if (e.key === 'ArrowUp') {
+                        e.preventDefault();
+                        currentIndex = Math.max(currentIndex - 1, 0);
+                        items[currentIndex].focus();
+                    } else if (e.key === 'Escape') {
+                        dropdown.classList.remove('active');
+                        toggle.focus();
+                    }
+                });
+            });
+        });
+
+        // Enhanced tooltip functionality
+        document.querySelectorAll('.tooltip').forEach(tooltip => {
+            let timeoutId;
+
+            tooltip.addEventListener('mouseenter', function () {
+                clearTimeout(timeoutId);
+                timeoutId = setTimeout(() => {
+                    this.classList.add('tooltip-show');
+                }, 500);
+            });
+
+            tooltip.addEventListener('mouseleave', function () {
+                clearTimeout(timeoutId);
+                this.classList.remove('tooltip-show');
+            });
+        });
+
+        // Auto-hide alerts after 5 seconds
+        document.querySelectorAll('.alert:not(.hidden)').forEach(alert => {
+            setTimeout(() => {
+                alert.style.opacity = '0';
+                alert.style.transform = 'translateY(-10px)';
+                setTimeout(() => alert.classList.add('hidden'), 300);
+            }, 5000);
+        });
+
+        // Smooth scroll for internal links
+        document.querySelectorAll('a[href^="#"]').forEach(link => {
+            link.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // In initializeTheme, don't rely on event.target
+        function initializeTheme() {
+            const savedTheme = localStorage.getItem('neobrutal-theme') || 'classic';
+            switchTheme(savedTheme);
+
+            // Update active button separately
+            document.querySelectorAll('.theme-btn').forEach(btn => {
+                if (btn.onclick.toString().includes(savedTheme)) {
+                    btn.classList.add('active');
+                }
+            });
+        }
+
+        // Save theme preference
+        const originalSwitchTheme = switchTheme;
+        switchTheme = function (themeName) {
+            originalSwitchTheme(themeName);
+            localStorage.setItem('neobrutal-theme', themeName);
+        };
+
+        // Enhanced table sorting functionality
+        function makeSortableTable(table) {
+            const headers = table.querySelectorAll('th');
+
+            headers.forEach((header, index) => {
+                if (header.textContent.trim()) {
+                    header.style.cursor = 'pointer';
+                    header.innerHTML += ' <i class="ri-arrow-up-down-line" style="font-size: 12px; opacity: 0.5;"></i>';
+
+                    header.addEventListener('click', function () {
+                        sortTable(table, index);
+                    });
+                }
+            });
+        }
+
+        function sortTable(table, columnIndex) {
+            const tbody = table.querySelector('tbody');
+            const rows = Array.from(tbody.querySelectorAll('tr'));
+            const isAscending = table.dataset.sortOrder !== 'asc';
+
+            rows.sort((a, b) => {
+                const aText = a.cells[columnIndex].textContent.trim();
+                const bText = b.cells[columnIndex].textContent.trim();
+
+                if (!isNaN(aText) && !isNaN(bText)) {
+                    return isAscending ? aText - bText : bText - aText;
+                }
+
+                return isAscending ? aText.localeCompare(bText) : bText.localeCompare(aText);
+            });
+
+            rows.forEach(row => tbody.appendChild(row));
+            table.dataset.sortOrder = isAscending ? 'asc' : 'desc';
+
+            // Update sort indicator
+            const headers = table.querySelectorAll('th');
+            headers.forEach(h => {
+                const icon = h.querySelector('i');
+                if (icon) icon.className = 'ri-arrow-up-down-line';
+            });
+
+            const currentHeader = headers[columnIndex].querySelector('i');
+            if (currentHeader) {
+                currentHeader.className = isAscending ? 'ri-arrow-up-line' : 'ri-arrow-down-line';
+            }
+        }
+
+        // Enhanced search functionality for tables
+        function addTableSearch(table) {
+            const searchWrapper = document.createElement('div');
+            searchWrapper.className = 'form-group';
+            searchWrapper.innerHTML = `
+                <label class="label">Search Table</label>
+                <div class="input-group">
+                    <i class="ri-search-line"></i>
+                    <input type="text" class="input table-search" placeholder="Search...">
+                </div>
+            `;
+
+            table.parentNode.insertBefore(searchWrapper, table);
+
+            const searchInput = searchWrapper.querySelector('.table-search');
+            searchInput.addEventListener('input', function () {
+                const searchTerm = this.value.toLowerCase();
+                const rows = table.querySelectorAll('tbody tr');
+
+                rows.forEach(row => {
+                    const text = row.textContent.toLowerCase();
+                    row.style.display = text.includes(searchTerm) ? '' : 'none';
+                });
+            });
+        }
+
+        // Dark mode toggle functionality
+        function createDarkModeToggle() {
+            const toggle = document.createElement('div');
+            toggle.className = 'toggle-wrapper';
+            toggle.style.position = 'fixed';
+            toggle.style.top = '20px';
+            toggle.style.right = '20px';
+            toggle.style.zIndex = '1000';
+            toggle.style.background = 'var(--bg-primary)';
+            toggle.style.padding = '12px';
+            toggle.style.borderRadius = '12px';
+            toggle.style.border = '2px solid var(--border-color)';
+            toggle.style.boxShadow = '4px 4px 0px var(--shadow-secondary)';
+
+            toggle.innerHTML = `
+                <input type="checkbox" class="toggle" id="dark-mode-toggle">
+                <label for="dark-mode-toggle">
+                    <i class="ri-moon-line"></i>
+                    Dark Mode
+                </label>
+            `;
+
+            document.body.appendChild(toggle);
+
+            const checkbox = toggle.querySelector('#dark-mode-toggle');
+            checkbox.addEventListener('change', function () {
+                if (this.checked) {
+                    switchTheme('dark');
+                } else {
+                    switchTheme('classic');
+                }
+            });
+        }
+
+        // Advanced form validation with custom rules
+        function validateForm(form) {
+            const requiredFields = form.querySelectorAll('[required]');
+            let isValid = true;
+
+            requiredFields.forEach(field => {
+                if (!field.value.trim()) {
+                    showFieldError(field, 'This field is required');
+                    isValid = false;
+                } else if (field.type === 'email' && !isValidEmail(field.value)) {
+                    showFieldError(field, 'Please enter a valid email address');
+                    isValid = false;
+                } else {
+                    clearFieldError(field);
+                }
+            });
+
+            return isValid;
+        }
+
+        function showFieldError(field, message) {
+            clearFieldError(field);
+
+            const errorDiv = document.createElement('div');
+            errorDiv.className = 'field-error';
+            errorDiv.style.cssText = `
+                color: var(--error-color);
+                font-size: 13px;
+                margin-top: 4px;
+                font-weight: 500;
+            `;
+            errorDiv.textContent = message;
+
+            field.style.borderColor = 'var(--error-color)';
+            field.style.boxShadow = '4px 4px 0px var(--error-color)';
+            field.parentNode.appendChild(errorDiv);
+        }
+
+        function clearFieldError(field) {
+            field.style.borderColor = 'var(--border-color)';
+            field.style.boxShadow = '';
+
+            const existingError = field.parentNode.querySelector('.field-error');
+            if (existingError) {
+                existingError.remove();
+            }
+        }
+
+        function isValidEmail(email) {
+            return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+        }
+
+        // Initialize all enhancements when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function () {
+            console.log('Enhanced NeoBrutal Kit loaded successfully');
+
+            // Initialize theme
+            initializeTheme();
+
+            // Add smooth scrolling
+            document.documentElement.style.scrollBehavior = 'smooth';
+
+            // Initialize stat animations
+            animateStatsOnScroll();
+
+            // Initialize progress bar animations
+            animateProgressBars();
+
+            // Make tables sortable and searchable
+            document.querySelectorAll('.table').forEach(table => {
+                makeSortableTable(table);
+                addTableSearch(table);
+            });
+
+            // Create dark mode toggle
+            // createDarkModeToggle(); // Uncomment if needed
+
+            // Add slide-in animation to component sections
+            const sections = document.querySelectorAll('.component-section');
+            const sectionObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('slide-in');
+                        sectionObserver.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            sections.forEach(section => sectionObserver.observe(section));
+
+            // Enhanced form validation
+            document.getElementById('feedbackForm').addEventListener('submit', function (e) {
+                if (!validateForm(this)) {
+                    e.preventDefault();
+                    return false;
+                }
+            });
+
+            // Add pulse effect to CTA buttons
+            setTimeout(() => {
+                document.querySelectorAll('.btn-large').forEach(btn => {
+                    btn.classList.add('pulse');
+                });
+            }, 2000);
+
+            // Performance optimization: Lazy load heavy animations
+            if ('IntersectionObserver' in window) {
+                console.log('Enhanced animations and interactions enabled');
+            } else {
+                console.log('Basic functionality enabled (older browser)');
+            }
+        });
+
+        // Handle keyboard shortcuts
+        document.addEventListener('keydown', function (e) {
+            // Ctrl/Cmd + K for modal
+            if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+                e.preventDefault();
+                openModal();
+            }
+
+            // Escape to close modal
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+        });
+
+        // Enhanced accessibility features
+        function enhanceAccessibility() {
+            // Add ARIA labels where missing
+            document.querySelectorAll('.btn').forEach(btn => {
+                if (!btn.getAttribute('aria-label') && btn.querySelector('i')) {
+                    const icon = btn.querySelector('i');
+                    const text = btn.textContent.trim();
+                    if (!text) {
+                        btn.setAttribute('aria-label', 'Button');
+                    }
+                }
+            });
+
+            // Add focus indicators for keyboard navigation
+            document.querySelectorAll('input, button, select, textarea, a').forEach(element => {
+                element.addEventListener('focus', function () {
+                    this.style.outline = '2px solid var(--accent-primary)';
+                    this.style.outlineOffset = '2px';
+                });
+
+                element.addEventListener('blur', function () {
+                    this.style.outline = '';
+                    this.style.outlineOffset = '';
+                });
+            });
+        }
+
+        // Call accessibility enhancements
+        enhanceAccessibility();
+
+        // Error boundary for JavaScript errors
+        window.addEventListener('error', function (e) {
+            console.error('NeoBrutal Kit Error:', e.error);
+
+            // Show user-friendly error message
+            const errorAlert = document.createElement('div');
+            errorAlert.className = 'alert alert-error';
+            errorAlert.style.position = 'fixed';
+            errorAlert.style.top = '20px';
+            errorAlert.style.left = '20px';
+            errorAlert.style.right = '20px';
+            errorAlert.style.zIndex = '10000';
+            errorAlert.innerHTML = `
+                <i class="ri-error-warning-line"></i>
+                <div>
+                    <strong>Oops!</strong> Something went wrong. Please refresh the page or try again.
+                </div>
+            `;
+
+            document.body.appendChild(errorAlert);
+
+            setTimeout(() => {
+                errorAlert.remove();
+            }, 5000);
+        });
+
+    </script>
+</body>
+
+</html>
