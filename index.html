@@ -1522,8 +1522,7 @@
             </p>
             <a href="https://burning-hat.com" target="_blank" rel="noopener" class="creator-info">
                 <div class="creator-logo">
-                    <img src="https://images.unsplash.com/photo-1557804506-669a67965ba0?w=64&h=64&fit=crop&crop=face"
-                        alt="BurningHat Logo">
+                    <img src="creator-logo.png" alt="BurningHat Logo">
                 </div>
                 Created by BurningHat
             </a>
@@ -2264,22 +2263,22 @@
             <div class="footer-links">
                 <a href="https://burning-hat.com" target="_blank" rel="noopener" class="footer-link">
                     <i class="ri-fire-line"></i>
-                    BurningHat Studio
+                    BurningHat
                 </a>
                 <a href="mailto:burninghat20@gmail.com" class="footer-link">
                     <i class="ri-mail-line"></i>
                     Email Us
                 </a>
-                <a href="https://burning-hat.com/portfolio" target="_blank" rel="noopener" class="footer-link">
+                <a href="https://burning-hat.com" target="_blank" rel="noopener" class="footer-link">
                     <i class="ri-palette-line"></i>
                     Our Work
                 </a>
-                <a href="https://burning-hat.com/contact" target="_blank" rel="noopener" class="footer-link">
+                <a href="https://social-links.burning-hat.tech" target="_blank" rel="noopener" class="footer-link">
                     <i class="ri-chat-3-line"></i>
                     Contact
                 </a>
             </div>
-            <p>© 2025 BurningHat Studio. Crafted with ❤️ for the bold and creative.</p>
+            <p>© 2025 BurningHat. Crafted with ❤️ for the bold and creative.</p>
         </div>
     </div>
 
@@ -2881,7 +2880,7 @@
         });
 
         // Auto-hide alerts after 5 seconds
-        document.querySelectorAll('.alert:not(.hidden)').forEach(alert => {
+        document.querySelectorAll('.alert.auto-hide').forEach(alert => {
             setTimeout(() => {
                 alert.style.opacity = '0';
                 alert.style.transform = 'translateY(-10px)';
@@ -2889,11 +2888,22 @@
             }, 5000);
         });
 
-        // Smooth scroll for internal links
+        // Find this code around line 2895 in the JavaScript section
         document.querySelectorAll('a[href^="#"]').forEach(link => {
             link.addEventListener('click', function (e) {
                 e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
+                const href = this.getAttribute('href');
+
+                // Skip empty anchors or scroll to top if href is just "#"
+                if (href === '#') {
+                    window.scrollTo({
+                        top: 0,
+                        behavior: 'smooth'
+                    });
+                    return;
+                }
+
+                const target = document.querySelector(href);
                 if (target) {
                     target.scrollIntoView({
                         behavior: 'smooth',
